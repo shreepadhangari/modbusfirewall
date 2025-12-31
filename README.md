@@ -8,28 +8,27 @@ The system is designed to sit between an HMI/Client and a PLC/Server, acting as 
 
 ```mermaid
 graph TD
-    classDef client fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef server fill:#bbf,stroke:#333,stroke-width:2px;
-    classDef security fill:#f96,stroke:#333,stroke-width:2px;
+    classDef client fill:#f9f,stroke:#333,stroke-width:2px
+    classDef server fill:#bbf,stroke:#333,stroke-width:2px
+    classDef security fill:#f96,stroke:#333,stroke-width:2px
 
     subgraph "Local Network"
         LC[Local Client HMI]:::client
-        FW[Modbus Firewall]:::security
-        PLC[Simulated PLC]:::server
+        FW["Modbus Firewall<br/>(DPI + Policy)"]:::security
+        PLC["Simulated PLC<br/>:5020"]:::server
     end
 
     subgraph "Internet (Secure Tunnel)"
         RC[Remote Client HMI]:::client
-        LT[LocalTunnel HTTPS]
-        HB[HTTP Bridge + Auth]:::security
+        LT[LocalTunnel]
+        HB["HTTP Bridge<br/>+ Auth :8080"]:::security
     end
 
-    RC -- "1. HTTPS (Encrypted)" --> LT
-    LT -- "2. HTTP" --> HB
-    HB -- "3. Modbus TCP" --> FW
+    RC -- "HTTPS + JSON<br/>{data: base64}" --> LT
+    LT -- "HTTP {JSON} " --> HB
+    HB -- "Modbus TCP" --> FW
     LC -- "Modbus TCP" --> FW
-    FW -- "4. DPI & Policy Check" --> FW
-    FW -- "5. Forwarded Traffic" --> PLC
+    FW -- "Modbus TCP" --> PLC
 ```
 
 ---
