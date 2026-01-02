@@ -19,7 +19,7 @@ from rich.live import Live
 from rich.layout import Layout
 from rich.text import Text
 
-from core.config import DEFAULT_CONFIG
+from config import DEFAULT_CONFIG
 
 
 class ActivityTracker:

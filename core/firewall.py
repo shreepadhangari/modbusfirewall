@@ -11,13 +11,18 @@ import sys
 import subprocess
 import re
 import shutil
+import os
 from typing import Dict, Tuple, Optional
 from dataclasses import dataclass
+
+# Add parent directory to path for imports
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
 
-from core.config import DEFAULT_CONFIG, get_function_code_name
+from config import DEFAULT_CONFIG, get_function_code_name
 from utils.dpi_engine import DPIEngine, ModbusException
 from utils.security import SecurityPolicyEngine, PolicyDecision
 from utils.logging import ModbusLogger, LogAction, get_logger

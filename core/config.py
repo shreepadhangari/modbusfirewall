@@ -131,10 +131,9 @@ class SecurityPolicy:
         ModbusFunctionCode.WRITE_MULTIPLE_COILS,
         ModbusFunctionCode.READ_WRITE_MULTIPLE_REGISTERS,
     })
-    write_allowed_ips: Set[str] = field(default_factory=set)
+
     maintenance_mode: bool = False
     rate_limit: int = 100
-    register_policies: Dict[int, Set[int]] = field(default_factory=dict)
 
 
 @dataclass

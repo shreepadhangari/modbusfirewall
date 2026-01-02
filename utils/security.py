@@ -164,34 +164,13 @@ class SecurityPolicyEngine:
         if fc in self.config.blocked_function_codes:
             # Check for exceptions
             
-            # 1. Check IP whitelist for write operations
-            if frame.is_write_operation and client_ip in self.config.write_allowed_ips:
-                self.stats['allowed'] += 1
-                return PolicyResult(
-                    PolicyDecision.ALLOW,
-                    f"{fc_name} allowed for authorized IP {client_ip}"
-                )
-            
-            # 2. Check maintenance window
+            # 1. Check maintenance window
             if frame.is_write_operation and self.maintenance_window.is_active():
                 self.stats['allowed'] += 1
                 return PolicyResult(
                     PolicyDecision.ALLOW,
                     f"{fc_name} allowed during maintenance window"
                 )
-            
-            # 3. Check register-level policies
-            if self.config.register_policies:
-                from utils.dpi_engine import DPIEngine
-                dpi = DPIEngine()
-                register_addr = dpi.get_register_address(frame)
-                if register_addr is not None and register_addr in self.config.register_policies:
-                    if fc in self.config.register_policies[register_addr]:
-                        self.stats['allowed'] += 1
-                        return PolicyResult(
-                            PolicyDecision.ALLOW,
-                            f"{fc_name} allowed for register {register_addr}"
-                        )
             
             # Block the request
             self.stats['blocked'] += 1
@@ -206,14 +185,6 @@ class SecurityPolicyEngine:
             PolicyDecision.BLOCK,
             f"Unknown function code {fc_name} (FC:0x{fc:02X}) - default deny"
         )
-    
-    def add_write_allowed_ip(self, ip: str):
-        """Add an IP to the write-allowed list"""
-        self.config.write_allowed_ips.add(ip)
-    
-    def remove_write_allowed_ip(self, ip: str):
-        """Remove an IP from the write-allowed list"""
-        self.config.write_allowed_ips.discard(ip)
     
     def set_maintenance_window(self, start: dt_time, end: dt_time, days: Set[int] = None):
         """Set maintenance window for allowing writes"""
@@ -230,14 +201,6 @@ class SecurityPolicyEngine:
     def disable_bypass(self):
         """Disable bypass mode"""
         self.bypass_mode = False
-    
-    def add_register_policy(self, register: int, allowed_fcs: Set[int]):
-        """Add register-level policy"""
-        self.config.register_policies[register] = allowed_fcs
-    
-    def remove_register_policy(self, register: int):
-        """Remove register-level policy"""
-        self.config.register_policies.pop(register, None)
     
     def get_stats(self) -> dict:
         """Get policy enforcement statistics"""
