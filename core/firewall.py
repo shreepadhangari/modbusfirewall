@@ -12,6 +12,7 @@ import subprocess
 import re
 import shutil
 import os
+from datetime import time as dt_time
 from typing import Dict, Tuple, Optional
 from dataclasses import dataclass
 
@@ -293,6 +294,8 @@ class ModbusFirewall:
         ))
         
         self.running = True
+        # self.policy_engine.enable_bypass()
+        # self.policy_engine.set_maintenance_window(start=dt_time(10,48),end=dt_time(11,00))
         
         # Start server
         self.server = await asyncio.start_server(

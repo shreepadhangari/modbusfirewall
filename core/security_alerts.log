@@ -1,0 +1,43 @@
+# Security Alerts Log
+[SECURITY ALERT] 2026-01-03T10:26:15.442413
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 127.0.0.1:65248
+  Transaction ID: 1
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T10:26:36.872369
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 127.0.0.1:65262
+  Transaction ID: 6
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T10:51:32.198464
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 127.0.0.1:55593
+  Transaction ID: 16552
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T10:53:36.968767
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 127.0.0.1:53270
+  Transaction ID: 10447
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T11:11:39.407121
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 10.24.112.217:61145
+  Transaction ID: 60991
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T11:11:58.526069
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 10.24.112.217:61145
+  Transaction ID: 14120
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
+[SECURITY ALERT] 2026-01-03T11:15:13.294813
+  Blocked WRITE_SINGLE_COIL (FC:05)
+  Source: 127.0.0.1:59425
+  Transaction ID: 5
+  Reason: WRITE_SINGLE_COIL (FC:0x05) is blocked by security policy
+---
